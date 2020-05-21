@@ -6,6 +6,7 @@ import About from "../views/About.vue";
 import MyOrders from "../views/MyOrders.vue";
 import Cart from "../views/Cart.vue";
 import Inventory from "../views/Inventory.vue";
+import Shop from "../views/Shop.vue";
 
 import store from "../store";
 
@@ -13,6 +14,7 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: "/", name: "Home", component: Home },
+  { path: "/shop", name: "Shop", component: Shop },
   { path: "/about", name: "About", component: About },
   { path: "/login", name: "Login", component: Login },
   {

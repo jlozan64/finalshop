@@ -1,8 +1,8 @@
 <template>
-  <v-container>
+  <v-container class="main-container white">
     <v-row>
       <v-col cols="12">
-        <h1 class="mb-4">My Orders</h1>
+        <h1 class="mb-4 text-center">My Orders</h1>
         <v-expansion-panels>
           <v-expansion-panel v-for="order in orders" :key="order.id">
             <v-expansion-panel-header>
@@ -52,13 +52,13 @@ export default {
   name: "MyOrders",
   data() {
     return {
-      orders: []
+      orders: [],
     };
   },
   computed: {
     ...mapGetters({
-      user: "getUser"
-    })
+      user: "getUser",
+    }),
   },
   mounted() {
     this.bind();
@@ -69,7 +69,7 @@ export default {
         "orders",
         db.collection("orders").where("user", "==", this.user.uid)
       );
-    }
-  }
+    },
+  },
 };
 </script>

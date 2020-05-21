@@ -1,113 +1,88 @@
 <template>
-<div id="bgcolor">
-  <v-container>
+  <v-container class="white lighten-5 main-container">
     <v-row>
-        <h2
-          class="text-4xl font-light px-4 hover:bg-white hover:text-pink-800"
-        >
-         Crafted with love!
-        </h2>
-    </v-row>
-    <v-row>
-      <v-col
-        v-for="product in products"
-        :key="product.id"
-        cols="12"
-        md="6"
-        lg="4"
-      >
-        <v-card>
-          <v-card-title class="headline">{{ product.name }}</v-card-title>
-          <v-card-subtitle>
-            <v-container>
-              <v-row>
-                <p class="title">${{ product.price }}</p>
-                <v-spacer />
-                <div>
-                  <p v-if="product.quantity > 0" class="success--text">
-                    {{ product.quantity }} left
-                  </p>
-                  <p v-else class="error--text">Out of Stock</p>
-                </div>
+      <v-col class="text-center" cols="12" lg="6">
+        <h1>What we do</h1>
+        <v-card class="pa-2" elevation="0">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/vASapvgu9gQ"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </v-card>
+        <br />
+        <v-btn to="/shop" text class="pink" dark x-large>
+          <span>Browse Pastries</span>
+        </v-btn>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-card class="pa-2" elevation="0">
+          <v-card class="mx-auto">
+            <v-img
+              height="250"
+              src="https://static1.squarespace.com/static/518ea9e4e4b0eb1ecff22776/518ea9e5e4b0eb1ecff2277a/5810deba6b8f5b70e61d54fd/1536097055223/shutterstock_176646242.jpg?format=1500w"
+            ></v-img>
+
+            <v-card-title>Tina's Pastries</v-card-title>
+
+            <v-card-text>
+              <v-row align="center" class="mx-0">
+                <v-rating
+                  :value="4.5"
+                  color="amber"
+                  dense
+                  half-increments
+                  readonly
+                  size="14"
+                ></v-rating>
+
+                <div class="grey--text ml-4">4.5 (413)</div>
               </v-row>
-            </v-container>
-          </v-card-subtitle>
-          <v-card-text class="mt-n6">{{ product.description }}</v-card-text>
-          <v-card-actions>
-            <v-btn
-              v-if="user"
-              block
-              color="pink"
-              rounded
-              :disabled="product.quantity == 0"
-              @click="addToCart(product)"
-              >Add to Cart</v-btn
-            >
-            <v-btn
-              v-else
-              block
-              color="green"
-              rounded
-              :disabled="product.quantity == 0"
-              to="/login"
-              >Please Login to Buy</v-btn
-            >
-          </v-card-actions>
+
+              <div class="my-4 subtitle-1">
+                $ • Cakeshop, Cafe
+              </div>
+
+              <div>
+                Pastries decoration, party events, online store, cafe place,
+                come and visit us.
+              </div>
+            </v-card-text>
+
+            <v-divider class="mx-4"></v-divider>
+
+            <v-card-title>Today's Open Hours</v-card-title>
+
+            <v-card-text>
+              <v-chip-group
+                active-class="deep-purple accent-4 white--text"
+                column
+              >
+                <v-chip>8:30AM - 12:00PM</v-chip>
+
+                <v-chip>1:00PM- 6:00PM</v-chip>
+              </v-chip-group>
+            </v-card-text>
+          </v-card>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
-  </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { db } from "../plugins/firebase";
 export default {
   name: "Home",
   data() {
-    return {
-      products: []
-    };
+    return {};
   },
-  computed: {
-    ...mapGetters({
-      user: "getUser"
-    })
-  },
-  mounted() {
-    this.bind();
-  },
-  methods: {
-    async bind() {
-      await this.$bind(
-        "products",
-        db.collection("products").where("showCatalog", "==", true)
-      );
-    },
-    async addToCart(product) {
-      await db
-        .collection("cart")
-        .doc(this.user.uid)
-        .update({
-          items: this.$firebase.firestore.FieldValue.arrayUnion({
-            id: product.id,
-            name: product.name,
-            quantity: 1,
-            price: product.price
-          })
-        });
-    }
-  }
+  computed: {},
+  mounted() {},
+  methods: {},
 };
 </script>
 
-<style lang="scss" scoped>
-#bgcolor {
-  background-color: #7fffd4;
-  height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background: relative;
-}
-</style>
+<style lang="scss"></style>

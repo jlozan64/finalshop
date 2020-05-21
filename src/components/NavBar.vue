@@ -1,19 +1,28 @@
 <template>
-  <v-app-bar app color="purple" light>
-    <v-toolbar-title class="font-weight-light">
-      <v-btn
-        text
-        class="text-none font-weight-light headline"
-        @click="$router.push('/')"
-      >
-        <span class="font-semibold">Tina's Pastries</span>
-      </v-btn>
-    </v-toolbar-title>
+  <v-app-bar height="100" color="white" hide-on-scroll light app>
+    <router-link
+      to="/"
+      style="text-decoration: none; color: black; text-align; display: contents"
+    >
+      <v-img
+        class="mx-2"
+        src="/images/logo.png"
+        max-height="40"
+        max-width="40"
+        contain
+      ></v-img>
 
+      <v-toolbar-title class="navbar-title ml-2" style="font-size: 1.50rem;">
+        Tina's Pastries
+      </v-toolbar-title>
+    </router-link>
     <v-spacer></v-spacer>
 
+    <v-btn text to="/shop" class="pink" dark>
+      <span>Shop</span>
+    </v-btn>
     <v-btn v-if="!user" to="/login" text>
-      <span class="mr-2">Login</span>
+      <span>Login</span>
     </v-btn>
     <div v-else>
       <v-menu bottom left>
@@ -22,7 +31,7 @@
             <span class="mr-2">{{ user.displayName }}</span>
             <v-icon>mdi-menu-down</v-icon>
           </v-btn>
-          <v-badge v-if="cart" color="blue" overlap>
+          <v-badge color="blue" overlap>
             <template v-slot:badge>{{ cart.items.length }}</template>
             <v-btn text @click="$router.push('/cart')">
               <v-icon>mdi-cart</v-icon>
@@ -70,15 +79,19 @@ export default {
   name: "NavBar",
   data() {
     return {
-      cart: {}
+      cart: { items: [] },
     };
   },
   computed: {
     ...mapGetters({
-      user: "getUser"
-    })
+      user: "getUser",
+    }),
   },
+
   updated() {
+    this.bind();
+  },
+  mounted() {
     this.bind();
   },
   methods: {
@@ -90,7 +103,14 @@ export default {
     async bind() {
       await this.$bind("cart", db.collection("cart").doc(this.user.uid));
     },
-    ...mapActions(["setUser"])
-  }
+    ...mapActions(["setUser"]),
+  },
 };
 </script>
+
+<style>
+.navbar-title {
+  font-family: "Dancing Script", cursive;
+  font-size: 40px;
+}
+</style>

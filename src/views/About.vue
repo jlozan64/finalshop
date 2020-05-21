@@ -1,27 +1,34 @@
 <template>
-  <div>
-    <div
-      class="relative h-screen w-screen bg-cover bg-center shadow-2xl"
-      :style="`background-image:url(${bgImage})`"
-    >
-      <div class="h-screen w-screen bg-purple-800 opacity-75" />
-      <div
-        class="absolute h-screen w-screen top-0 flex flex-col justify-center items-center"
-      >
-        <h2
-          class="text-4xl font-bold text-white px-4 hover:bg-white hover:text-pink-800 opacity-75"
+  <v-container class="main-container white text-center">
+    <h1>What we do</h1>
+    <v-row>
+      <v-col sm="6">
+        <v-img
+          class="rounded"
+          src="https://cdnimg.webstaurantstore.com/uploads/blog/2018/8/start-a-bakery-bakery-display-case.jpg"
+          lazy-src="https://picsum.photos/id/11/100/60"
         >
-         Our Little Shop
-        </h2>
-        <h3
-          class="text-2xl font-bold text-white px-4 hover:bg-white hover:text-pink-800 opacity-75"
-        >
-         Located in Rio Grande Valley, Tina's Pastery Shop crafts all of our baked treats from scratch with fresh and natural ingredients.
-For the most discerning sweet tooth, we offer ready to go Cakes, Cupcakes, Cake Pops, French Macarons, Cookies, Pies, and much more! You can make a purchase through our website or visit our local shop!
-        </h3>
-      </div>
-    </div>
-  </div>
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
+      </v-col>
+      <v-col sm="6" class="description">
+        <h4>
+          Located in Rio Grande Valley, Tina's Pastery Shop crafts all of our
+          baked treats from scratch with fresh and natural ingredients. For the
+          most discerning sweet tooth, we offer ready to go Cakes, Cupcakes,
+          Cake Pops, French Macarons, Cookies, Pies, and much more! You can make
+          a purchase through our website or visit our local shop!
+        </h4>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -30,8 +37,15 @@ export default {
   name: "about",
   data() {
     return {
-      bgImage
+      bgImage,
     };
-  }
+  },
 };
 </script>
+<style>
+.description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
